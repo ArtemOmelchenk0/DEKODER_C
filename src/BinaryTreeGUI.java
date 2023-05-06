@@ -35,7 +35,7 @@ public class BinaryTreeGUI extends JPanel {
         Font font = new Font("Arial", Font.BOLD, 12); // określij ustawienia tekstu
         g.setFont(font);
         if(node.value != 300)
-            g.drawString(Integer.toString(node.value), x - nodeSize / 4, y + nodeSize / 4);// wypisz wartość węzła w środku kółka
+            g.drawString(Character.toString(node.value), x - nodeSize / 4, y + nodeSize / 4);// wypisz wartość węzła w środku kółka
 
         if (node.left != null) {// jeśli istnieje lewy węzeł, narysuj go
             int xLeft = x - dx;// oblicz pozycję lewego węzła
