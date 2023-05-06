@@ -10,6 +10,7 @@ public class BinaryTreeGUI extends JPanel {
     public BinaryTreeGUI(BinaryTree.Node root) { // konstruktor klasy BinaryTreeGUI
         this.root = root;
         setPreferredSize(new Dimension(800, 600));// Ustaw  preferowany rozmiar panelu
+        setBackground(Color.GRAY); // ustaw kolor
     }
 
     @Override
@@ -21,16 +22,24 @@ public class BinaryTreeGUI extends JPanel {
     }
 
     private void drawNode(Graphics g, BinaryTree.Node node, int x, int y, int dx) {
-        g.setColor(Color.GREEN);// ustaw kolor wypełnienia węzła na zielony
+        if(node.value == 300) {// ustaw kolor wypełnienia węzła
+            g.setColor(Color.GREEN);
+        }
+        else {
+            g.setColor(Color.CYAN);
+        }
         g.fillOval(x - nodeSize / 2, y - nodeSize / 2, nodeSize, nodeSize);// narysuj koło jako węzeł
-        g.setColor(Color.BLACK);// ustaw kolor obwódki węzła na czarny
+        g.setColor(Color.RED);// ustaw kolor obwódki węzła
         g.drawOval(x - nodeSize / 2, y - nodeSize / 2, nodeSize, nodeSize);// narysuj obwódkę koło jako węzła
+        g.setColor(Color.BLACK);// ustaw
+        Font font = new Font("Arial", Font.BOLD, 12); // określij ustawienia tekstu
+        g.setFont(font);
         g.drawString(Integer.toString(node.value), x - nodeSize / 4, y + nodeSize / 4);// wypisz wartość węzła w środku kółka
 
         if (node.left != null) {// jeśli istnieje lewy węzeł, narysuj go
             int xLeft = x - dx;// oblicz pozycję lewego węzła
             int yLeft = y + gap;
-            g.setColor(Color.BLACK);// ustaw kolor linii na czarny
+            g.setColor(Color.RED);// ustaw kolor linii
             g.drawLine(x, y, xLeft, yLeft);// narysuj linię łączącą obecny węzeł z lewym węzłem
             drawNode(g, node.left, xLeft, yLeft, dx / 2);// kontynuuj rysowanie dla lewego węzła
         }
@@ -38,7 +47,7 @@ public class BinaryTreeGUI extends JPanel {
         if (node.right != null) {// jeśli istnieje prawy węzeł, narysuj go
             int xRight = x + dx;// oblicz pozycję prawego węzła
             int yRight = y + gap;
-            g.setColor(Color.BLACK);// ustaw kolor linii na czarny
+            g.setColor(Color.RED);// ustaw kolor linii
             g.drawLine(x, y, xRight, yRight);// narysuj linię łączącą obecny węzeł z prawym węzłem
             drawNode(g, node.right, xRight, yRight, dx / 2);// kontynuuj rysowanie dla prawego węzła
         }
