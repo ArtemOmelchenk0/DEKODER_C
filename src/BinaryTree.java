@@ -51,4 +51,5 @@ public class BinaryTree {
             traverseInOrder(node.right, level + 1);
         }
     }
+
 }
