@@ -18,46 +18,28 @@ public class BinaryTree {
         root = null;
     }
 
+    public void add( int value, String path) {
 
-    /*private Node addRecursive(Node current, int value, String path, int i) {
-        if (current == null) {
-            if (i == (path.length() - 1))
-                return new Node(value);
-            else return new Node(300);
+        if (root == null)
+            root = new Node(300);
+        Node temp = root;
+        for (int i = 0; i < path.length(); i++)
+        {
+            if (path.charAt(i) == '0') {
+                if (root.left == null) {
+                    root.left = new Node(300);
+                }
+                root = root.left;
+            }
+            else {
+                if (root.right == null) {
+                    root.right = new Node(300);
+                }
+                root = root.right;
+            }
         }
-
-        System.out.print(path.charAt(i));
-        if (path.charAt(i) == '0') {
-            current.left = addRecursive(current.left, value, path, i + 1);
-        } else if (path.charAt(i) == '1') {
-            current.right = addRecursive(current.right, value, path, i + 1);
-        }
-
-        return current;
-    }*/
-
-    private Node addRecursive(Node current, int value, String path, int i) {
-        if (current == null) {
-            if (i == (path.length() - 1))
-                return new Node(value);
-            else return new Node(300);
-        }
-
-        for (int idx = 0; i < path.length(); i++)
-
-        System.out.print(path.charAt(i));
-        if (path.charAt(i) == '0') {
-            current.left = addRecursive(current.left, value, path, i + 1);
-        } else if (path.charAt(i) == '1') {
-            current.right = addRecursive(current.right, value, path, i + 1);
-        }
-
-        return current;
-    }
-
-    public void add(int value, String path, int i)
-    {
-        root = addRecursive(root, value, path, i);
+        root.value = value;
+        root = temp;
     }
 
     public void traverseInOrder(Node node, int level) {
