@@ -6,7 +6,9 @@ import java.io.IOException;
 import javax.swing.*;
 
 public class Program {
+
     public static void main(String[] args){
+
         //first step -> reading Huffman's Tree
 
         BinaryTree tree = new BinaryTree();
@@ -25,7 +27,6 @@ public class Program {
             e.printStackTrace();
         }
 
-        tree.traverseInOrder(tree.root, 0);
         // second step -> reading compression file and turning it into binary form
         short[] text = new short[1000000];
         int n = 0;
