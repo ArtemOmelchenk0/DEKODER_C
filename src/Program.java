@@ -1,19 +1,25 @@
 import java.io.*;
 import java.util.Scanner;
-import java.io.FileReader;
 import java.io.IOException;
-
 import javax.swing.*;
 
 public class Program {
 
     public static void main(String[] args){
 
-        //first step -> reading Huffman's Tree
+        System.out.println("Choose test (1-4) : ");
+        String path = new String();
+        char test_number;
+        try {
+            int x = System.in.read();
+            path = "test" +  (char)(x);
+        } catch (IOException e)  {
+            System.out.println("Error reading from user");
+        }
 
         BinaryTree tree = new BinaryTree();
         try {
-            File codes = new File("map.txt");
+            File codes = new File(path + "/map.txt");
             Scanner in = new Scanner(codes);
             while (in.hasNext()) {
                 String temp = in.next();
@@ -27,20 +33,17 @@ public class Program {
             e.printStackTrace();
         }
 
-        // second step -> reading compression file and turning it into binary form
         short[] text = new short[1000000];
         int n = 0;
-        File file = new File("compressed.bin");
+        File file = new File(path + "/compressed.bin");
         FileInputStream fis = null;
 
         try {
             fis = new FileInputStream(file);
-
             byte[] bytesArray = new byte[(int) file.length()];
             fis.read(bytesArray);
 
-            for (int i = 0; i < bytesArray.length; i++) {
-                byte b = bytesArray[i];
+            for (byte b : bytesArray) {
                 for (int j = 7; j >= 0; j--) {
                     int bit = (b >> j) & 1;
                     text[n++] = (short) ('0' + bit);
@@ -61,7 +64,6 @@ public class Program {
         try
         {
             FileOutputStream output = new FileOutputStream("output.bmp");
-
             BinaryTree.Node temp = tree.root;
 
             for (int i = 0; i < n; i++)
@@ -76,6 +78,7 @@ public class Program {
                     tree.root = temp;
                 }
             }
+            tree.root = temp;
             output.close();
 
         } catch (IOException e) {
@@ -85,17 +88,13 @@ public class Program {
 
 
         BinaryTreeGUI treePanel = new BinaryTreeGUI(tree.root);
-
-        // Tworzymy JScrollPane, aby móc dodać pasek przewijania do panelu z drzewem
         JScrollPane scrollPane = new JScrollPane(treePanel);
 
-        // Tworzenie i konfigurowanie okna JFrame
-        JFrame frame = new JFrame("Binary Tree");           // utwórz nowe okno z tytułem "Drzewo binarne"
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // ustal akcję zamknięcia okna po kliknięciu przycisku "X"
-        frame.getContentPane().add(scrollPane);                // dodaj panel drzewa binarnego wewnątrz panelu przewijania do kontenera okna
-        frame.pack();                                         // dopasuj rozmiar okna do rozmiaru jego zawartości
-        frame.setLocationRelativeTo(null);                   // umieść okno na środku ekranu
-        frame.setVisible(true);                             // pokaż okno i ustaw je jako widoczne
-
+        JFrame frame = new JFrame("Binary Tree");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(scrollPane);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }
